@@ -10,9 +10,10 @@ import Vuex from 'vuex'
 //import NProgress from 'nprogress'
 //import 'nprogress/nprogress.css'
 import routes from './routes'
-import Mock from './mock'
-Mock.bootstrap();
+// import Mock from './mock'
+// Mock.bootstrap();
 import 'font-awesome/css/font-awesome.min.css'
+import axios from 'axios'
 
 Vue.use(ElementUI)
 Vue.use(VueRouter)
@@ -21,17 +22,65 @@ Vue.use(Vuex)
 //NProgress.configure({ showSpinner: false });
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode:'history'
 })
 
 router.beforeEach((to, from, next) => {
+  console.log("beforeEach执行！")
   //NProgress.start();
+  console.log('topath',to.params)
+  console.log('frompath',from.params)
+  console.log('ggggggg',window.location.href)
+  if (to.query.code){
+    // alert(to.query.code)
+    axios.get('https://api.haomoai.com/auth/ramlogin?uri=http://127.0.0.1:8080/&code=' + to.query.code)
+    .then(res=>{
+      let userName = res.data.username
+      let token = res.data.token
+      localStorage.setItem("userName",userName)
+      localStorage.setItem("token",token)
+      // alert(userName)
+      next({path:'/indexNav'})
+    })
+    .catch(err=>{
+      console.log(err)
+      alert(err)
+    })
+  }
+
+  // 首页跳转导航页
+  if(to.path == '/') {
+    next({path:'/indexNav'})
+  }
+
+  // alert(window.location.href)
   if (to.path == '/login') {
     sessionStorage.removeItem('user');
+    localStorage.removeItem('user');
   }
   let user = JSON.parse(sessionStorage.getItem('user'));
-  if (!user && to.path != '/login') {
-    next({ path: '/login' })
+  let user2 = localStorage.getItem('userName')
+  console.log('user2',user2)
+  console.log('user',user)
+  console.log("end")
+  if (!user2 && to.path != '/login') {
+    // next({ path: '/login' })
+    let ram_url = "https://api.haomoai.com/auth/ramlogin?uri=" + ("http://127.0.0.1:8080/");
+    // // let ram_url = "http://www.baidu.com"
+    console.log(ram_url)
+    axios.get(ram_url)
+    .then(res=>{
+      console.log("测试ramurl")
+      let res_url= res.data.url
+      console.log(res_url)
+      // alert(1)
+      window.location.href = res_url
+    })
+    .catch(err=>{
+      console.log(1234)
+      console.log(err)
+    })
   } else {
     next()
   }
