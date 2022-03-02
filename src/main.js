@@ -32,6 +32,8 @@ router.beforeEach((to, from, next) => {
   console.log('topath',to.params)
   console.log('frompath',from.params)
   console.log('ggggggg',window.location.href)
+  
+  // code参数拦截跳转登录
   if (to.query.code){
     // alert(to.query.code)
     axios.get('https://api.haomoai.com/auth/ramlogin?uri=http://127.0.0.1:8080/&code=' + to.query.code)
@@ -54,33 +56,31 @@ router.beforeEach((to, from, next) => {
     next({path:'/indexNav'})
   }
 
-  // alert(window.location.href)
   if (to.path == '/login') {
-    sessionStorage.removeItem('user');
-    localStorage.removeItem('user');
+    // sessionStorage.removeItem('userName');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('token')
+
   }
   let user = JSON.parse(sessionStorage.getItem('user'));
   let user2 = localStorage.getItem('userName')
-  console.log('user2',user2)
-  console.log('user',user)
-  console.log("end")
+
   if (!user2 && to.path != '/login') {
-    // next({ path: '/login' })
-    let ram_url = "https://api.haomoai.com/auth/ramlogin?uri=" + ("http://127.0.0.1:8080/");
-    // // let ram_url = "http://www.baidu.com"
-    console.log(ram_url)
-    axios.get(ram_url)
-    .then(res=>{
-      console.log("测试ramurl")
-      let res_url= res.data.url
-      console.log(res_url)
-      // alert(1)
-      window.location.href = res_url
-    })
-    .catch(err=>{
-      console.log(1234)
-      console.log(err)
-    })
+    next({ path: '/login' })
+    // let ram_url = "https://api.haomoai.com/auth/ramlogin?uri=" + ("http://127.0.0.1:8080/");
+    // console.log(ram_url)
+    // axios.get(ram_url)
+    // .then(res=>{
+    //   console.log("测试ramurl")
+    //   let res_url= res.data.url
+    //   console.log(res_url)
+    //   // alert(1)
+    //   window.location.href = res_url
+    // })
+    // .catch(err=>{
+    //   console.log(1234)
+    //   console.log(err)
+    // })
   } else {
     next()
   }

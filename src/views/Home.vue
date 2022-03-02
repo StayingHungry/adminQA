@@ -10,16 +10,16 @@
 				</div>
 			</el-col>
 			<el-col :span="4" class="userinfo">
-				<span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
+				<!-- <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span> -->
 
-				<!-- <el-dropdown trigger="hover">
+				<el-dropdown trigger="hover">
 					<span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
 					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item>我的消息</el-dropdown-item>
-						<el-dropdown-item>设置</el-dropdown-item>
-						<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
+						<!-- <el-dropdown-item>我的消息</el-dropdown-item> -->
+						<!-- <el-dropdown-item>设置</el-dropdown-item> -->
+						<el-dropdown-item  @click.native="logout">退出登录</el-dropdown-item>
 					</el-dropdown-menu>
-				</el-dropdown> -->
+				</el-dropdown>
 			</el-col>
 		</el-col>
 		<el-col :span="24" class="main">
@@ -113,10 +113,11 @@
 				this.$confirm('确认退出吗?', '提示', {
 					//type: 'warning'
 				}).then(() => {
-					sessionStorage.removeItem('user');
-					localStorage.removeItem('user')
-					// _this.$router.push('/login');
-					window.location.href = "https://api.haomoai.com/auth/ramlogin?uri=http://www.local.haomo.comm/#/indexNav";
+					// sessionStorage.removeItem('userName');
+					localStorage.removeItem('userName')
+					localStorage.removeItem('token')
+					_this.$router.push('/login');
+					// window.location.href = "https://api.haomoai.com/auth/ramlogin?uri=http://www.local.haomo.comm/#/indexNav";
 				}).catch(() => {
 
 				});
