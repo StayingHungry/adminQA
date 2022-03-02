@@ -62,7 +62,8 @@
                 });
               } else {
                 sessionStorage.setItem('user', JSON.stringify(user));
-                this.$router.push({ path: '/table' });
+                localStorage.setItem('user',JSON.stringify(user))
+                this.$router.push({ path: '/indexNav' });
               }
             });
           } else {
