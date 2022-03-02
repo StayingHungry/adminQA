@@ -8,6 +8,7 @@ import user from './views/nav1/user.vue'
 import Page4 from './views/nav2/Page4.vue'
 import Page5 from './views/nav2/Page5.vue'
 import Page6 from './views/nav3/Page6.vue'
+import IndexNav from './views/index_nav/IndexNav.vue'
 import echarts from './views/charts/echarts.vue'
 
 let routes = [
@@ -23,12 +24,24 @@ let routes = [
         name: '',
         hidden: true
     },
-    //{ path: '/main', component: Main },
+    // { path: '/main', component: Main },
+
+    {
+        path: '/',
+        component: Home,
+        name: '',
+        iconCls: 'fa fa-institution',
+        leaf: true,//只有一个节点
+        children: [
+            { path: '/indexNav', component: IndexNav, name: '导航' }
+        ]
+    },
+
     {
         path: '/',
         component: Home,
         name: '自动化',
-        iconCls: 'el-icon-message',//图标样式class
+        iconCls: 'fa fa-automobile',//图标样式class
         children: [
             { path: '/main', component: Main, name: '主页', hidden: true },
             { path: '/table', component: Table, name: 'Table' },
@@ -39,7 +52,7 @@ let routes = [
     {
         path: '/',
         component: Home,
-        name: '数据构',
+        name: '数据构造',
         iconCls: 'fa fa-id-card-o',
         children: [
             { path: '/page4', component: Page4, name: '页面4' },
