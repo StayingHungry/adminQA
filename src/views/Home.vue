@@ -10,12 +10,17 @@
 				</div>
 			</el-col>
 			<el-col :span="4" class="userinfo">
+				<!-- <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span> -->
+
 				<el-dropdown trigger="hover">
-					<span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
+					<span class="el-dropdown-link userinfo-inner"> 
+						{{sysUserName}} 
+						<i class='fa fa-user' style='color: white'></i>
+					</span>
 					<el-dropdown-menu slot="dropdown">
-						<el-dropdown-item>我的消息</el-dropdown-item>
-						<el-dropdown-item>设置</el-dropdown-item>
-						<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
+						<!-- <el-dropdown-item>我的消息</el-dropdown-item> -->
+						<!-- <el-dropdown-item>设置</el-dropdown-item> -->
+						<el-dropdown-item  @click.native="logout">退出登录</el-dropdown-item>
 					</el-dropdown-menu>
 				</el-dropdown>
 			</el-col>
@@ -61,6 +66,7 @@
 						</el-breadcrumb>
 					</el-col>
 					<el-col :span="24" class="content-wrapper">
+						
 						<transition name="fade" mode="out-in">
 							<router-view></router-view>
 						</transition>
@@ -72,6 +78,7 @@
 </template>
 
 <script>
+	import axios from "axios";
 	export default {
 		data() {
 			return {
@@ -109,8 +116,11 @@
 				this.$confirm('确认退出吗?', '提示', {
 					//type: 'warning'
 				}).then(() => {
-					sessionStorage.removeItem('user');
+					// sessionStorage.removeItem('userName');
+					localStorage.removeItem('userName')
+					localStorage.removeItem('token')
 					_this.$router.push('/login');
+					// window.location.href = "https://api.haomoai.com/auth/ramlogin?uri=http://www.local.haomo.comm/#/indexNav";
 				}).catch(() => {
 
 				});
@@ -132,11 +142,18 @@
 			}
 		},
 		mounted() {
-			var user = sessionStorage.getItem('user');
+			console.log("mounted执行！1")
+			// var user = sessionStorage.getItem('user');
+			var user = localStorage.getItem('userName')
+			// alert(1)
+			// axios
+			// 	.get('https://api.haomoai.com/auth/ramlogin?uri=http://www.local.haomo.com/#/indexNav')
+			// 	.then(response => (console.log(response,123)))
+			// 	.catch(error => console.log(error))
 			if (user) {
-				user = JSON.parse(user);
-				this.sysUserName = user.name || '';
-				this.sysUserAvatar = user.avatar || '';
+				// user = JSON.parse(user);
+				this.sysUserName = user || '';
+				this.sysUserAvatar = "http://www.haomo.ai/wp-content/uploads/2021/02/logo-short.svg";
 			}
 
 		}
