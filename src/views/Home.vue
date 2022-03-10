@@ -13,7 +13,10 @@
 				<!-- <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span> -->
 
 				<el-dropdown trigger="hover">
-					<span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
+					<span class="el-dropdown-link userinfo-inner"> 
+						{{sysUserName}} 
+						<i class='fa fa-user' style='color: white'></i>
+					</span>
 					<el-dropdown-menu slot="dropdown">
 						<!-- <el-dropdown-item>我的消息</el-dropdown-item> -->
 						<!-- <el-dropdown-item>设置</el-dropdown-item> -->

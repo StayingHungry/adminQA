@@ -46,11 +46,13 @@
       },
       handleSubmit2(ev) {
         console.log("ram点击")
+        this.logining = true
         let ram_url = "https://api.haomoai.com/auth/ramlogin?uri=" + ("http://127.0.0.1:8080/");
         console.log(ram_url)
         axios.get(ram_url)
         .then(res=>{
           let res_url= res.data.url
+          // this.logining = false
           window.location.href = res_url
         })
         .catch(err=>{

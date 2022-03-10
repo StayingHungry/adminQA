@@ -5,9 +5,11 @@ import Main from './views/Main.vue'
 import Table from './views/nav1/Table.vue'
 import Form from './views/nav1/Form.vue'
 import user from './views/nav1/user.vue'
-import Page4 from './views/nav2/Page4.vue'
-import Page5 from './views/nav2/Page5.vue'
+import ListDataCon from './views/nav1/ListDataCon.vue'
+import InsertOneDocument from './views/nav2/InsertOneDocument.vue'
+import NewTable from './views/nav2/NewTable.vue'
 import Page6 from './views/nav3/Page6.vue'
+import DataMake from './views/nav2/DataMake.vue'
 import IndexNav from './views/index_nav/IndexNav.vue'
 import echarts from './views/charts/echarts.vue'
 
@@ -47,6 +49,7 @@ let routes = [
             { path: '/table', component: Table, name: 'Table' },
             { path: '/form', component: Form, name: 'Form' },
             { path: '/user', component: user, name: '列表' },
+            { path: '/listDataCon', component: ListDataCon, name: '构造列表'}
         ]
     },
     {
@@ -55,8 +58,9 @@ let routes = [
         name: '数据构造',
         iconCls: 'fa fa-id-card-o',
         children: [
-            { path: '/page4', component: Page4, name: '页面4' },
-            { path: '/page5', component: Page5, name: '页面5' }
+            { path: '/insertOne', component: InsertOneDocument, name: '单条数据' },
+            { path: '/dataMake', component: DataMake, name: '循环创建'},
+            { path: '/newCol', component: NewTable, name: '新表创建' },
         ]
     },
     {
